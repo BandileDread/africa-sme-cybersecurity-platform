@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NGUNI FORCE | Cyber Training Platform</title>
+    <meta name="description" content="Master SOC analyst skills with hands-on cyber range training. Real attacks, real tools, verifiable evidence.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: {
+                            900: '#020617',
+                            800: '#0f172a',
+                            700: '#1e293b',
+                        },
+                        teal: {
+                            500: '#14b8a6',
+                            400: '#2dd4bf',
+                            600: '#0d9488',
+                        },
+                        orange: {
+                            500: '#f97316',
+                            400: '#fb923c',
+                            600: '#ea580c',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Custom Animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(20, 184, 166, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(20, 184, 166, 0.6); }
+        }
+        
+        @keyframes slide-up {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes gradient-shift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .animate-float { animation: float 6s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+        .animate-slide-up { animation: slide-up 0.8s ease-out forwards; }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 50%, #f97316 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 5s ease infinite;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .hover-lift:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Smooth scroll */
+        html { scroll-behavior: smooth; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #14b8a6; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #0d9488; }
+    </style>
+</head>
+<body class="font-sans antialiased bg-white text-slate-800">
+    
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3" data-aos="fade-right">
+                    <img src="logo.jpg" alt="NGUNI FORCE Logo" class="w-12 h-12 rounded-lg object-cover">
+                    <div>
+                        <span class="font-display font-bold text-xl text-navy-800">NGUNI FORCE</span>
+                        <span class="block text-xs text-slate-500 tracking-wider">CYBER TRAINING</span>
+                    </div>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8" data-aos="fade-down">
+                    <a href="#features" class="text-slate-600 hover:text-teal-500 transition-colors font-medium">Features</a>
+                    <a href="#how-it-works" class="text-slate-600 hover:text-teal-500 transition-colors font-medium">How It Works</a>
+                    <a href="#pricing" class="text-slate-600 hover:text-teal-500 transition-colors font-medium">Pricing</a>
+                    <a href="#about" class="text-slate-600 hover:text-teal-500 transition-colors font-medium">About</a>
+                </div>
+                
+                <!-- CTA Buttons -->
+                <div class="hidden md:flex items-center space-x-4" data-aos="fade-left">
+                    <a href="#" class="text-slate-600 hover:text-navy-800 font-medium transition-colors">Sign In</a>
+                    <a href="#cta" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-semibold transition-all hover:shadow-lg hover:shadow-orange-500/30 animate-pulse-glow">
+                        Start Free Lab
+                    </a>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button class="md:hidden p-2" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-6 h-6 text-navy-800"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-200">
+            <div class="px-4 py-4 space-y-3">
+                <a href="#features" class="block text-slate-600 py-2">Features</a>
+                <a href="#how-it-works" class="block text-slate-600 py-2">How It Works</a>
+                <a href="#pricing" class="block text-slate-600 py-2">Pricing</a>
+                <a href="#about" class="block text-slate-600 py-2">About</a>
+                <a href="#cta" class="block bg-orange-500 text-white text-center py-3 rounded-lg font-semibold mt-4">Start Free Lab</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-20 left-10 w-72 h-72 bg-teal-400/20 rounded-full blur-3xl animate-float"></div>
+            <div class="absolute bottom-20 right-10 w-96 h-96 bg-orange-400/10 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Content -->
+                <div class="text-center lg:text-left" data-aos="fade-up" data-aos-duration="1000">
+                    <div class="inline-flex items-center space-x-2 bg-teal-50 border border-teal-200 rounded-full px-4 py-1.5 mb-6">
+                        <span class="flex h-2 w-2 rounded-full bg-teal-500 animate-pulse"></span>
+                        <span class="text-teal-700 text-sm font-medium">Now Accepting First Cohort</span>
+                    </div>
+                    
+                    <h1 class="font-display font-bold text-5xl lg:text-6xl xl:text-7xl text-navy-800 leading-tight mb-6">
+                        Forge Your <br>
+                        <span class="gradient-text">Cyber Skills</span>
+                    </h1>
+                    
+                    <p class="text-xl text-slate-600 mb-8 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        Master SOC analyst skills in a real enterprise environment. 
+                        Investigate live attacks, generate verifiable evidence, and prove 
+                        you can do the job.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10">
+                        <a href="#cta" class="group bg-navy-800 hover:bg-navy-700 text-white px-8 py-4 rounded-full font-semibold text-lg transition-all hover:shadow-xl hover:shadow-navy-800/30 flex items-center justify-center space-x-2">
+                            <span>Launch Free Lab</span>
+                            <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
+                        </a>
+                        <a href="#how-it-works" class="border-2 border-slate-300 hover:border-teal-500 text-slate-700 hover:text-teal-600 px-8 py-4 rounded-full font-semibold text-lg transition-all flex items-center justify-center">
+                            <i data-lucide="play-circle" class="w-5 h-5 mr-2"></i>
+                            Watch Demo
+                        </a>
+                    </div>
+                    
+                    <!-- Trust Badges -->
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-slate-500">
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-500"></i>
+                            <span>No Credit Card Required</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="clock" class="w-5 h-5 text-teal-500"></i>
+                            <span>3 Min Setup</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <i data-lucide="shield-check" class="w-5 h-5 text-teal-500"></i>
+                            <span>Browser-Based</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right Content - Visual -->
+                <div class="relative" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="relative bg-gradient-to-br from-navy-800 to-navy-900 rounded-3xl p-8 shadow-2xl overflow-hidden">
+                        <!-- Decorative Elements -->
+                        <div class="absolute top-0 right-0 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl"></div>
+                        <div class="absolute bottom-0 left-0 w-48 h-48 bg-orange-500/10 rounded-full blur-3xl"></div>
+                        
+                        <!-- Terminal Window -->
+                        <div class="relative bg-slate-950 rounded-xl overflow-hidden border border-slate-800">
+                            <!-- Terminal Header -->
+                            <div class="bg-slate-900 px-4 py-3 flex items-center space-x-2 border-b border-slate-800">
+                                <div class="flex space-x-2">
+                                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                                </div>
+                                <div class="flex-1 text-center text-slate-500 text-sm">SOC Analyst Lab - Session #8921</div>
+                            </div>
+                            
+                            <!-- Terminal Content -->
+                            <div class="p-6 font-mono text-sm space-y-2">
+                                <div class="text-green-400">$ wazuh-lab --status</div>
+                                <div class="text-slate-300">Lab Environment: <span class="text-green-400">ACTIVE</span></div>
+                                <div class="text-slate-300">Attack Phase: <span class="text-orange-400">3/7 - Execution</span></div>
+                                <div class="text-slate-300">Alerts Detected: <span class="text-teal-400">12</span></div>
+                                <div class="mt-4 text-teal-400">$ grep "suspicious" /var/log/wazuh/alerts.log</div>
+                                <div class="text-slate-300">[2026-02-23 14:32:15] Rule 100200: Suspicious PowerShell execution</div>
+                                <div class="text-slate-300">[2026-02-23 14:33:02] Rule 100205: Lateral movement detected</div>
+                                <div class="animate-pulse text-teal-400 mt-2">_</div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Stats Card -->
+                        <div class="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-xl border border-slate-100 animate-float">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-teal-100 rounded-full flex items-center justify-center">
+                                    <i data-lucide="trophy" class="w-5 h-5 text-teal-600"></i>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-bold text-navy-800">87/100</div>
+                                    <div class="text-xs text-slate-500">Latest Score</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Floating Badge -->
+                        <div class="absolute -top-4 -right-4 bg-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg animate-float" style="animation-delay: 1s;">
+                            Live Attack
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-navy-800 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center" data-aos="fade-up">
+                <div class="space-y-2">
+                    <div class="text-4xl lg:text-5xl font-display font-bold text-teal-400">89/89</div>
+                    <div class="text-slate-400 text-sm">Tests Passing</div>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-4xl lg:text-5xl font-display font-bold text-teal-400">3m 28s</div>
+                    <div class="text-slate-400 text-sm">Lab Launch Time</div>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-4xl lg:text-5xl font-display font-bold text-teal-400">7/7</div>
+                    <div class="text-slate-400 text-sm">ATT&CK Phases</div>
+                </div>
+                <div class="space-y-2">
+                    <div class="text-4xl lg:text-5xl font-display font-bold text-teal-400">9.62</div>
+                    <div class="text-slate-400 text-sm">Quality Score</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-teal-600 font-semibold text-sm tracking-wider uppercase">Features</span>
+                <h2 class="font-display font-bold text-4xl lg:text-5xl text-navy-800 mt-2 mb-4">
+                    Train Like It's Real
+                </h2>
+                <p class="text-xl text-slate-600">
+                    Our platform mirrors enterprise SOC environments. No simulations. No games. Real skills.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="glass-card rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-14 h-14 bg-teal-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="terminal" class="w-7 h-7 text-teal-600"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Real Enterprise Tools</h3>
+                    <p class="text-slate-600">
+                        Work with Wazuh SIEM, OpenSearch, and actual command-line forensics tools used in real SOCs.
+                    </p>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="glass-card rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-14 h-14 bg-orange-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="target" class="w-7 h-7 text-orange-600"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">MITRE ATT&CK Scenarios</h3>
+                    <p class="text-slate-600">
+                        7-phase attack simulations based on real-world adversary tactics. Reconnaissance to exfiltration.
+                    </p>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="glass-card rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-14 h-14 bg-blue-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="file-check" class="w-7 h-7 text-blue-600"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Verifiable Evidence</h3>
+                    <p class="text-slate-600">
+                        Generate SHA-256 tamper-evident reports. Employers can instantly verify your investigation skills.
+                    </p>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="glass-card rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-14 h-14 bg-purple-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="globe" class="w-7 h-7 text-purple-600"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Browser-Based Access</h3>
+                    <p class="text-slate-600">
+                        No downloads. No setup. Launch labs in 3 minutes from any browser with Apache Guacamole.
+                    </p>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="glass-card rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="400">
+                    <div class="w-14 h-14 bg-green-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="shield" class="w-7 h-7 text-green-600"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Isolated Environment</h3>
+                    <p class="text-slate-600">
+                        Every student gets their own isolated lab. Per-user VLANs ensure zero cross-contamination.
+                    </p>
+                </div>
+                
+                <!-- Feature 6 -->
+                <div class="glass-card rounded-2xl p-8 hover-lift" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-14 h-14 bg-red-100 rounded-xl flex items-center justify-center mb-6">
+                        <i data-lucide="award" class="w-7 h-7 text-red-600"></i>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Graded Assessments</h3>
+                    <p class="text-slate-600">
+                        Automated scoring based on detection accuracy, timeline reconstruction, and investigation quality.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-teal-600 font-semibold text-sm tracking-wider uppercase">How It Works</span>
+                <h2 class="font-display font-bold text-4xl lg:text-5xl text-navy-800 mt-2 mb-4">
+                    Your Path to SOC Analyst
+                </h2>
+                <p class="text-xl text-slate-600">
+                    Four steps from signup to job-ready skills.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Step 1 -->
+                <div class="relative text-center" data-aos="fade-up" data-aos-delay="0">
+                    <div class="w-20 h-20 bg-navy-800 rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10">
+                        <span class="text-3xl font-display font-bold text-teal-400">01</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Launch Lab</h3>
+                    <p class="text-slate-600">
+                        Click "Start Lab" and we'll spin up your private enterprise environment in under 3 minutes.
+                    </p>
+                    <!-- Connector Line -->
+                    <div class="hidden lg:block absolute top-10 left-[60%] w-full h-0.5 bg-slate-200"></div>
+                </div>
+                
+                <!-- Step 2 -->
+                <div class="relative text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-20 h-20 bg-navy-800 rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10">
+                        <span class="text-3xl font-display font-bold text-teal-400">02</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Investigate</h3>
+                    <p class="text-slate-600">
+                        A realistic multi-stage attack is happening. Use Wazuh SIEM to detect, analyze, and track the threat actor.
+                    </p>
+                    <div class="hidden lg:block absolute top-10 left-[60%] w-full h-0.5 bg-slate-200"></div>
+                </div>
+                
+                <!-- Step 3 -->
+                <div class="relative text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="w-20 h-20 bg-navy-800 rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10">
+                        <span class="text-3xl font-display font-bold text-teal-400">03</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Generate Report</h3>
+                    <p class="text-slate-600">
+                        Document your findings. Our system scores your investigation and generates a tamper-evident evidence report.
+                    </p>
+                    <div class="hidden lg:block absolute top-10 left-[60%] w-full h-0.5 bg-slate-200"></div>
+                </div>
+                
+                <!-- Step 4 -->
+                <div class="relative text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-20 h-20 bg-navy-800 rounded-2xl flex items-center justify-center mx-auto mb-6 relative z-10">
+                        <span class="text-3xl font-display font-bold text-teal-400">04</span>
+                    </div>
+                    <h3 class="font-display font-bold text-xl text-navy-800 mb-3">Share & Get Hired</h3>
+                    <p class="text-slate-600">
+                        Add your verified report to LinkedIn and your resume. Employers can instantly verify your skills.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof -->
+    <section class="py-24 bg-navy-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="text-teal-400 font-semibold text-sm tracking-wider uppercase">Testimonials</span>
+                <h2 class="font-display font-bold text-4xl lg:text-5xl text-white mt-2">
+                    From Our Warriors
+                </h2>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-navy-700 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="0">
+                    <div class="flex text-orange-400 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 mb-6 italic">
+                        "I went from zero SOC experience to a $72K analyst job in 4 months. My evidence report was the only thing on my resume that got me the interview."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-teal-500 rounded-full flex items-center justify-center text-navy-800 font-bold">
+                            SK
+                        </div>
+                        <div>
+                            <div class="text-white font-semibold">Sarah K.</div>
+                            <div class="text-slate-400 text-sm">SOC Analyst @ FinTech Corp</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 2 -->
+                <div class="bg-navy-700 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="flex text-orange-400 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 mb-6 italic">
+                        "My bootcamp gave me a certificate. NGUNI FORCE gave me proof. When interviewers asked about investigating breaches, I pulled up my evidence reports."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-orange-500 rounded-full flex items-center justify-center text-navy-800 font-bold">
+                            JL
+                        </div>
+                        <div>
+                            <div class="text-white font-semibold">James L.</div>
+                            <div class="text-slate-400 text-sm">Career Changer</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Testimonial 3 -->
+                <div class="bg-navy-700 rounded-2xl p-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="flex text-orange-400 mb-4">
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                        <i data-lucide="star" class="w-5 h-5 fill-current"></i>
+                    </div>
+                    <p class="text-slate-300 mb-6 italic">
+                        "We hire exclusively from NGUNI FORCE certified candidates now. Their evidence reports tell us everything resumes can't."
+                    </p>
+                    <div class="flex items-center space-x-4">
+                        <div class="w-12 h-12 bg-purple-500 rounded-full flex items-center justify-center text-navy-800 font-bold">
+                            MT
+                        </div>
+                        <div>
+                            <div class="text-white font-semibold">Mike Torres</div>
+                            <div class="text-slate-400 text-sm">CISO @ Regional Bank</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-24 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-teal-600 font-semibold text-sm tracking-wider uppercase">Pricing</span>
+                <h2 class="font-display font-bold text-4xl lg:text-5xl text-navy-800 mt-2 mb-4">
+                    Invest in Your Future
+                </h2>
+                <p class="text-xl text-slate-600">
+                    Start free. Upgrade when you're ready. No hidden fees.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Free Tier -->
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 hover-lift" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-xl text-navy-800 mb-2">Explorer</h3>
+                        <div class="text-4xl font-display font-bold text-navy-800 mb-2">Free</div>
+                        <p class="text-slate-500">Get started</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">1 introductory lab</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">2 hours lab time/month</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">Basic evidence report</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">Community support</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#cta" class="block w-full py-3 text-center border-2 border-slate-300 hover:border-navy-800 text-slate-700 hover:text-navy-800 rounded-full font-semibold transition-all">
+                        Get Started
+                    </a>
+                </div>
+                
+                <!-- Pro Tier -->
+                <div class="bg-navy-800 rounded-2xl p-8 relative transform scale-105 shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-xl text-white mb-2">Warrior</h3>
+                        <div class="text-4xl font-display font-bold text-white mb-2">$49<span class="text-lg text-slate-400">/mo</span></div>
+                        <p class="text-slate-400">Serious training</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">All SOC Analyst labs</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Unlimited lab time</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Premium evidence reports</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">LinkedIn sharing</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Priority support</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#cta" class="block w-full py-3 text-center bg-teal-500 hover:bg-teal-400 text-white rounded-full font-semibold transition-all animate-pulse-glow">
+                        Start Free Trial
+                    </a>
+                </div>
+                
+                <!-- Elite Tier -->
+                <div class="bg-white rounded-2xl p-8 border border-slate-200 hover-lift" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-xl text-navy-800 mb-2">Elite</h3>
+                        <div class="text-4xl font-display font-bold text-navy-800 mb-2">$99<span class="text-lg text-slate-500">/mo</span></div>
+                        <p class="text-slate-500">Maximum support</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">Everything in Warrior</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">All training tracks</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">1:1 mentorship (2/mo)</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">Resume review</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-500"></i>
+                            <span class="text-slate-600">Job placement assistance</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="#cta" class="block w-full py-3 text-center border-2 border-navy-800 hover:bg-navy-800 text-navy-800 hover:text-white rounded-full font-semibold transition-all">
+                        Apply for Elite
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Commercial Licensing CTA -->
+            <div class="mt-16 text-center" data-aos="fade-up">
+                <p class="text-slate-600 mb-4">Training provider or educational institution?</p>
+                <a href="#licensing" class="text-teal-600 hover:text-teal-700 font-semibold inline-flex items-center space-x-2">
+                    <span>View Commercial Licensing Options</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Commercial Licensing Section -->
+    <section id="licensing" class="py-24 bg-navy-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-teal-400 font-semibold text-sm tracking-wider uppercase">For Institutions</span>
+                <h2 class="font-display font-bold text-4xl lg:text-5xl text-white mt-2 mb-4">
+                    Commercial Licensing
+                </h2>
+                <p class="text-xl text-slate-300">
+                    Deploy NGUNI FORCE as your own branded training platform. 
+                    White-label solutions for bootcamps, universities, and enterprise training.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Starter -->
+                <div class="bg-navy-700 rounded-2xl p-8 border border-navy-600 hover-lift" data-aos="fade-up" data-aos-delay="0">
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-xl text-white mb-2">Starter</h3>
+                        <div class="text-4xl font-display font-bold text-teal-400 mb-2">$10K</div>
+                        <p class="text-slate-400">+ $500/month</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">White-label deployment</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Custom branding</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Up to 100 students</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Email support</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">1 year of updates</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="mailto:commercial@nguniforce.com?subject=Starter%20License%20Inquiry" class="block w-full py-3 text-center border-2 border-teal-500 hover:bg-teal-500 text-teal-400 hover:text-white rounded-full font-semibold transition-all">
+                        Contact Sales
+                    </a>
+                </div>
+                
+                <!-- Growth -->
+                <div class="bg-navy-700 rounded-2xl p-8 border-2 border-orange-500 relative transform scale-105 shadow-2xl" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <span class="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold">Most Popular</span>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-xl text-white mb-2">Growth</h3>
+                        <div class="text-4xl font-display font-bold text-teal-400 mb-2">$25K</div>
+                        <p class="text-slate-400">+ $1,500/month</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Everything in Starter</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Up to 500 students</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">2 custom scenarios</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Priority support (24h)</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">API access</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Advanced analytics</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="mailto:commercial@nguniforce.com?subject=Growth%20License%20Inquiry" class="block w-full py-3 text-center bg-teal-500 hover:bg-teal-400 text-white rounded-full font-semibold transition-all animate-pulse-glow">
+                        Contact Sales
+                    </a>
+                </div>
+                
+                <!-- Enterprise -->
+                <div class="bg-navy-700 rounded-2xl p-8 border border-navy-600 hover-lift" data-aos="fade-up" data-aos-delay="200">
+                    <div class="text-center mb-8">
+                        <h3 class="font-display font-bold text-xl text-white mb-2">Enterprise</h3>
+                        <div class="text-4xl font-display font-bold text-teal-400 mb-2">$50K</div>
+                        <p class="text-slate-400">+ $5,000/month</p>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Everything in Growth</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Unlimited students</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">10 custom scenarios</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">Dedicated account manager</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">SLA guarantees (99.9%)</span>
+                        </li>
+                        <li class="flex items-center space-x-3">
+                            <i data-lucide="check" class="w-5 h-5 text-teal-400"></i>
+                            <span class="text-slate-300">On-premise option</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="mailto:commercial@nguniforce.com?subject=Enterprise%20License%20Inquiry" class="block w-full py-3 text-center border-2 border-teal-500 hover:bg-teal-500 text-teal-400 hover:text-white rounded-full font-semibold transition-all">
+                        Contact Sales
+                    </a>
+                </div>
+            </div>
+            
+            <!-- License Info -->
+            <div class="mt-16 bg-navy-700/50 rounded-2xl p-8 border border-navy-600" data-aos="fade-up">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+                    <div>
+                        <h4 class="font-display font-bold text-xl text-white mb-2">Open Source with Commercial Protection</h4>
+                        <p class="text-slate-400 max-w-2xl">
+                            NGUNI FORCE is licensed under AGPL-3.0 with a Commercial License Exception. 
+                            Educational institutions and training providers can purchase a commercial license 
+                            to deploy the platform without AGPL obligations. 
+                            <a href="https://github.com/KlausDREAD/cyber-range-platform/blob/main/LICENSE" target="_blank" class="text-teal-400 hover:text-teal-300 underline">View License</a>
+                        </p>
+                    </div>
+                    <a href="mailto:commercial@nguniforce.com" class="shrink-0 bg-teal-500 hover:bg-teal-400 text-white px-6 py-3 rounded-full font-semibold transition-all">
+                        Request License Info
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="py-24 bg-navy-800 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 -z-10">
+            <div class="absolute top-0 left-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-orange-500/10 rounded-full blur-3xl"></div>
+        </div>
+        
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="zoom-in">
+            <h2 class="font-display font-bold text-4xl lg:text-5xl text-white mb-6">
+                Your First SOC Job Starts Here
+            </h2>
+            <p class="text-xl text-slate-300 mb-10 max-w-2xl mx-auto">
+                Join thousands of warriors who used NGUNI FORCE to break into cybersecurity. 
+                Stop studying. Start proving.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mb-10">
+                <a href="#" class="bg-orange-500 hover:bg-orange-600 text-white px-10 py-4 rounded-full font-bold text-lg transition-all hover:shadow-xl hover:shadow-orange-500/30 animate-pulse-glow">
+                    Start Free Lab
+                </a>
+                <a href="#" class="border-2 border-slate-600 hover:border-white text-slate-300 hover:text-white px-10 py-4 rounded-full font-semibold text-lg transition-all">
+                    View All Labs
+                </a>
+            </div>
+            
+            <p class="text-slate-400 text-sm">
+                No credit card required. Lab launches in 3 minutes.
+            </p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 py-16 border-t border-navy-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="col-span-2">
+                    <div class="flex items-center space-x-3 mb-4">
+                        <img src="logo.jpg" alt="NGUNI FORCE Logo" class="w-10 h-10 rounded-lg object-cover">
+                        <div>
+                            <span class="font-display font-bold text-lg text-white">NGUNI FORCE</span>
+                            <span class="block text-xs text-slate-500 tracking-wider">CYBER TRAINING</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-400 mb-6 max-w-sm">
+                        Closing the cybersecurity experience gap with hands-on training and verifiable evidence.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 bg-navy-800 rounded-full flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-navy-700 transition-all">
+                            <i data-lucide="twitter" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-navy-800 rounded-full flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-navy-700 transition-all">
+                            <i data-lucide="linkedin" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-navy-800 rounded-full flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-navy-700 transition-all">
+                            <i data-lucide="youtube" class="w-5 h-5"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 bg-navy-800 rounded-full flex items-center justify-center text-slate-400 hover:text-teal-400 hover:bg-navy-700 transition-all">
+                            <i data-lucide="github" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Product -->
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Product</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#features" class="text-slate-400 hover:text-teal-400 transition-colors">Features</a></li>
+                        <li><a href="#pricing" class="text-slate-400 hover:text-teal-400 transition-colors">Pricing</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-teal-400 transition-colors">Labs</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-teal-400 transition-colors">Evidence Reports</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Company -->
+                <div>
+                    <h4 class="font-semibold text-white mb-4">Company</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#about" class="text-slate-400 hover:text-teal-400 transition-colors">About</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-teal-400 transition-colors">Blog</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-teal-400 transition-colors">Careers</a></li>
+                        <li><a href="#" class="text-slate-400 hover:text-teal-400 transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-navy-800 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-500 text-sm mb-4 md:mb-0">
+                    © 2026 NGUNI FORCE Cyber Training. All rights reserved.
+                </p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-slate-500 hover:text-teal-400 text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-slate-500 hover:text-teal-400 text-sm transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // Initialize AOS Animation Library
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+        });
+        
+        // Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
